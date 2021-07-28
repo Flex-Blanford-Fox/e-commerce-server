@@ -11,16 +11,31 @@ class ProductController {
             })
     }
 
-    static postProduct(req, res, next){
-        let {name, image_url, price, stock} = req.body
-        // let {id, name, email} = req.currentUser
-        Product.create({name, image_url, price, stock}, {returning:true})
+    static findProduct(req, res, next) {
+        Product.findOne({where:{id:req.params.id}})
             .then(data=>{
-                res.status(201).json(data)
+                res.status(200).json(data)
             })
             .catch(err=>{
                 next(err)
             })
+    }
+
+    static postProduct(req, res, next){
+        let {name, image_url, price, stock} = req.body
+        // console.log(typeof(price), typeof(stock));
+        // if(typeof(price) !== "number" || typeof(stock) !== number){
+        //   next ({name:"Price and Stock has to be NUMBER"})
+        // } else {
+          // let {id, name, email} = req.currentUser
+          Product.create({name, image_url, price, stock}, {returning:true})
+              .then(data=>{
+                  res.status(201).json(data)
+              })
+              .catch(err=>{
+                  next(err)
+              })
+        // }
     }
 
     static putProduct (req, res, next){

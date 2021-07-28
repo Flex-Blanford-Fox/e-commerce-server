@@ -15,6 +15,11 @@ function errorHandler(err, req, res, next){
             message = "Email must be unique"
             break;
         
+        case "SequelizeDatabaseError":
+            code = 400
+            message = "Email must be unique"
+            break;
+        
         case "JsonWebTokenError":  
             code = 401  
             message = "Authentication Failed"  
@@ -34,6 +39,16 @@ function errorHandler(err, req, res, next){
             code = 404  
             message = "Task not found"  
             break;
+
+        case "Error":
+            code = 400
+            message = "Cannot be negative"
+            break;
+        
+        case "Price and Stock has to be NUMBER":
+          code = 400
+          message = "Price and Stock has to be NUMBER"
+          break;
 
         default:
             code = 500

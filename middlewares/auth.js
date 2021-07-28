@@ -5,20 +5,21 @@ const {User, Product} = require(`../models/index`)
 function authentication (req, res, next){
     try {
         let decoded = verifyToken(req.headers.access_token)
-        User.findByPk(decoded.id)
-            .then(data=>{
-                if(!data){
-                    throw {name:"Authentication Failed!"}
-                } else {
-                    req.currentUser = {id:data.id, email:data.email, role:data.role}
-                    next()
-                }
-            })
-            .catch(err=>{
-                next(err)
-            })
-    } catch (error) {
-        throw {name:"Authentication Failed!"}
+        console.log(decoded);
+        User.findOne({where:{email:decoded.email}})
+        .then(data=>{
+            if(!data){
+                throw {name:"Authentication Failed!"}
+            } else {
+                req.currentUser = {id:data.id, email:data.email, role:data.role}
+                next()
+            }
+        })
+        .catch(err=>{
+            next(err)
+        })
+    } catch (err) {
+        next(err)
     }
 }
 
@@ -32,6 +33,7 @@ function authorization(req, res, next){
     } else {
         Product.findByPk(req.params.id)
         .then(data=>{
+          console.log(req.params.id);
             if(!data){
                 throw {name: "Product not found"}
             } else {

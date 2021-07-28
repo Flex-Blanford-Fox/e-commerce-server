@@ -5,6 +5,7 @@ const router = require(`express`).Router()
 
 router.use(authentication)
 router.get(`/`, ProductController.getProducts)
+router.get(`/:id`, ProductController.findProduct)
 router.use(authorization)
 router.post(`/`, ProductController.postProduct)
 router.put(`/:id`, ProductController.putProduct)
