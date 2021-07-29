@@ -2,7 +2,7 @@ const {Product} = require (`../models/index`)
 
 class ProductController {
     static getProducts(req, res, next){
-        Product.findAll()
+        Product.findAll({order:[[`id`, `ASC`]]})
             .then(data=>{
                 res.status(200).json(data)
             })
@@ -22,19 +22,21 @@ class ProductController {
     }
 
     static postProduct(req, res, next){
+        console.log(req.body);
         let {name, image_url, price, stock} = req.body
         // console.log(typeof(price), typeof(stock));
         // if(typeof(price) !== "number" || typeof(stock) !== number){
         //   next ({name:"Price and Stock has to be NUMBER"})
         // } else {
           // let {id, name, email} = req.currentUser
-          Product.create({name, image_url, price, stock}, {returning:true})
-              .then(data=>{
-                  res.status(201).json(data)
-              })
-              .catch(err=>{
-                  next(err)
-              })
+        Product.create({name, image_url, price, stock}, {returning:true})
+            .then(data=>{
+                res.status(201).json(data)
+            })
+            .catch(err=>{
+                console.log(err);
+                next(err)
+            })
         // }
     }
 
