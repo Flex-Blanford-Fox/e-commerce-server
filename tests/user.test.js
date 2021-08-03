@@ -1,19 +1,18 @@
 const request = require(`supertest`)
 const app = require(`../app`)
 const {sequelize} = require(`../models/index`)
+const {user} = require(`../seeders/20210726044818-add_admin_to_database`)
 
- 
-// test (`adds 1 + 2 to equal 3`, ()=>{
-//     expect(sum(1,2)).toBe(3)
-// }) 
-
-// beforeAll((done) =>{
-//     sequelize.queryInterface.bulkDelete("Users", {})
-//         .then(()=>{
-//             done()
-//         })
-//         .catch(err => done(err))
-// })
+beforeAll((done) =>{
+    sequelize.queryInterface.bulkDelete("Users", {})
+        .then(()=>{
+          sequelize.queryInterface.bulkInsert("Users", user, {})
+        })
+        .then(()=>{
+          done()
+        })
+        .catch(err => done(err))
+})
 
 describe(`POST /login`, function(){
     it(`success case`, function (done) {

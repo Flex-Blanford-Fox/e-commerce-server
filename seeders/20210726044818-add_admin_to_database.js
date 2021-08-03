@@ -1,7 +1,10 @@
 'use strict';
 const user = require(`./admin.json`)
-user[0].createdAt = new Date ()
-user[0].updatedAt = new Date ()
+
+user.forEach(user =>{
+  user.createdAt = new Date ()
+  user.updatedAt = new Date ()
+})
 
 
 module.exports = {
@@ -28,3 +31,5 @@ module.exports = {
      */
   }
 };
+
+module.exports = {user}

@@ -2,7 +2,7 @@ function errorHandler(err, req, res, next){
     let code
     let message 
 
-    console.log(err.name);
+    console.log(err.name, "ini dari error handler");
 
     switch (err.name) {
         case "Username/Password Salah":
@@ -12,12 +12,12 @@ function errorHandler(err, req, res, next){
     
         case "SequelizeUniqueConstraintError":
             code = 400
-            message = "Email must be unique"
+            message = "Sequelize Unique Error"
             break;
         
         case "SequelizeDatabaseError":
             code = 400
-            message = "Email must be unique"
+            message = "Sequelize Error"
             break;
         
         case "JsonWebTokenError":  
@@ -25,12 +25,12 @@ function errorHandler(err, req, res, next){
             message = "Authentication Failed"  
             break;
         
-        case "Authentication Failed":  
+        case "Authentication Failed!":  
             code = 401  
             message = "Authentication Failed"  
             break;
         
-        case "Authorization Failed":  
+        case "Authorization Failed!":  
             code = 401  
             message = "Authorization Failed"  
             break;
@@ -42,12 +42,12 @@ function errorHandler(err, req, res, next){
 
         case "Error":
             code = 400
-            message = "Cannot be negative"
+            message = "Price and Stock has to be NUMBER >= 0"
             break;
         
-        case "Price and Stock has to be NUMBER":
+        case "Price and Stock has to be NUMBER >= 0":
           code = 400
-          message = "Price and Stock has to be NUMBER"
+          message = "Price and Stock has to be NUMBER >= 0"
           break;
 
         default:

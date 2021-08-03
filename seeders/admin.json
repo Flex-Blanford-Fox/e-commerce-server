@@ -3,5 +3,10 @@
     "email": "admin@mail.com",
 		"password": "$2a$10$qV0GNxRHvNMTjNZp9A/IF.eYQHIvcWTrISZUqk9j4o0p7IQe0ClWC",
 		"role": "admin"
+  },
+  {
+    "email": "wrong@mail.com",
+		"password": "$2a$10$qV0GNxRHvNMTjNZp9A/IF.eYQHIvcWTrISZUqk9j4o0p7IQe0ClWC",
+		"role": "customer"
   }
 ]

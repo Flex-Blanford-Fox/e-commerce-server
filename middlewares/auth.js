@@ -33,7 +33,7 @@ function authorization(req, res, next){
     } else {
         Product.findByPk(req.params.id)
         .then(data=>{
-          console.log(req.params.id);
+          // console.log(req.params.id);
             if(!data){
                 throw {name: "Product not found"}
             } else {
