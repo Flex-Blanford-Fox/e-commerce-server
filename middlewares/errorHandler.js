@@ -1,9 +1,7 @@
 function errorHandler(err, req, res, next){
     let code
     let message 
-
-    console.log(err.name, "ini dari error handler");
-
+    // console.log(err.name, "ini dari error handler");
     switch (err.name) {
         case "Username/Password Salah":
             code = 401

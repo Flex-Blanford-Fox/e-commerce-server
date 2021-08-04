@@ -5,7 +5,7 @@ class ProductController {
     static getProducts(req, res, next){
         Product.findAll({order:[[`id`, `ASC`]]})
             .then(data=>{
-                res.status(201).json(data)
+                res.status(200).json(data)
             })
             .catch(err=>{
                 next(err)
@@ -23,7 +23,7 @@ class ProductController {
     }
 
     static postProduct(req, res, next){
-        console.log(req.body);
+        // console.log(req.body);
         let {name, image_url, price, stock} = req.body
         if(typeof(price) !== "number" || typeof(stock) !== "number"){
           next ({name:"Price and Stock has to be NUMBER >= 0"})
@@ -33,7 +33,7 @@ class ProductController {
                 res.status(201).json(data)
             })
             .catch(err=>{
-                console.log(err);
+                // console.log(err);
                 next(err)
             })
         }
@@ -46,7 +46,7 @@ class ProductController {
         } else {
           Product.update({name, image_url, price, stock}, {where: {id:req.params.id}, returning:true})
               .then(data=>{
-                  res.status(201).json(data)
+                  res.status(200).json(data)
               })
               .catch(err=>{
                   next(err)
@@ -58,7 +58,7 @@ class ProductController {
         let {stock} = req.body
         Product.update({stock}, {where:{id:req.params.id}, returning:true})
             .then(data=>{
-                res.status(201).json(data)
+                res.status(200).json(data)
             })
             .catch(err=>{
                 next(err)
