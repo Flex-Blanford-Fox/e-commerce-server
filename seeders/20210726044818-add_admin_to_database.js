@@ -8,8 +8,8 @@ user.forEach(user =>{
 
 
 module.exports = {
-  up:  (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Users', user, {})
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkInsert('Users', user, {})
     /**
      * Add seed commands here.
      *
@@ -21,8 +21,8 @@ module.exports = {
     */
   },
 
-  down:  (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Users', null, {})
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkDelete('Users', null, {})
     /**
      * Add commands to revert seed here.
      *
