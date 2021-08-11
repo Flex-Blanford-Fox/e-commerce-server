@@ -3,21 +3,22 @@ const {User, Product} = require(`../models/index`)
 
 
 function authentication (req, res, next){
-    try {
-        let decoded = verifyToken(req.headers.access_token)
-        console.log(decoded);
-        User.findOne({where:{email:decoded.email}})
-        .then(data=>{
-            if(!data){
-                throw {name:"Authentication Failed!"}
-            } else {
-                req.currentUser = {id:data.id, email:data.email, role:data.role}
-                next()
-            }
-        })
-        .catch(err=>{
-            next(err)
-        })
+  console.log(req.headers.access_token, "Sampe Ke sini")
+  try {
+    let decoded = verifyToken(req.headers.access_token)
+    console.log(decoded);
+    User.findOne({where:{email:decoded.email}})
+    .then(data=>{
+      if(!data){
+        throw {name:"Authentication Failed!"}
+      } else {
+        req.currentUser = {id:data.id, email:data.email, role:data.role}
+        next()
+      }
+    })
+    .catch(err=>{
+        next(err)
+    })
     } catch (err) {
         next(err)
     }

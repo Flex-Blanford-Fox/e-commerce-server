@@ -1,5 +1,4 @@
-const e = require('express')
-const {Product} = require (`../models/index`)
+const {Product, Cart} = require (`../models/index`)
 
 class ProductController {
     static getProducts(req, res, next){
@@ -23,10 +22,14 @@ class ProductController {
     }
 
     static postProduct(req, res, next){
-        // console.log(req.body);
+        console.log(req.body);
         let {name, image_url, price, stock} = req.body
-        if(typeof(price) !== "number" || typeof(stock) !== "number"){
-          next ({name:"Price and Stock has to be NUMBER >= 0"})
+        price = Number(price)
+        stock = Number(stock)
+        console.log(price, stock);
+        console.log(typeof(price), typeof(stock), "INI STELAH DI CONVERT");
+        if(price == "NaN" || stock == "NaN" || typeof(price) !== "number" || typeof(stock) !== "number"){
+          throw ({name:"Price and Stock has to be NUMBER >= 0"})
         } else {
         Product.create({name, image_url, price, stock}, {returning:true})
             .then(data=>{
@@ -70,7 +73,7 @@ class ProductController {
         Product.findByPk(req.params.id)
             .then(data=>{
                 if(!data){
-                    throw {name:"Prooduct not found!"}
+                    throw {name:"Product not found!"}
                 } else {
                     deleted = data
                     return Product.destroy({where:{id:req.params.id}})

@@ -58,7 +58,7 @@ describe(`GET /products`, function(){
 })
 
 describe(`POST /products`, function(){
-    it(`success case post propduct`, function(done){
+    it(`success case post product`, function(done){
         request(app)
         .post(`/products`)
         .set("access_token", token)
@@ -80,7 +80,7 @@ describe(`POST /products`, function(){
         })
     })
 
-    it(`failed case post propduct - No Token`, function(done){
+    it(`failed case post product - No Token`, function(done){
         request(app)
         .post(`/products`)
         .send(
@@ -96,7 +96,7 @@ describe(`POST /products`, function(){
         })
     })
 
-    it(`failed case post propduct - Not Admin`, function(done){
+    it(`failed case post product - Not Admin`, function(done){
         request(app)
         .post(`/products`)
         .set("access_token", wrongToken)
@@ -114,7 +114,7 @@ describe(`POST /products`, function(){
         })
     })
 
-    it(`failed case post propduct - Required Field not received`, function(done){
+    it(`failed case post product - Required Field not received`, function(done){
         request(app)
         .post(`/products`)
         .set("access_token", token)
@@ -123,7 +123,7 @@ describe(`POST /products`, function(){
         )
         .then(response=>{
             expect(response.status).toBe(400)
-            expect(response.body).toHaveProperty(`message`, "Price and Stock has to be NUMBER >= 0")
+            expect(response.body).toHaveProperty(`message`, "Sequelize Error")
             done()
         })
         .catch(err=>{
@@ -165,7 +165,7 @@ describe(`POST /products`, function(){
         })
     })
 
-    it(`failed case post propduct - Wrong datatypes`, function(done){
+    it.only(`failed case post propduct - Wrong datatypes`, function(done){
         request(app)
         .post(`/products`)
         .set("access_token", token)

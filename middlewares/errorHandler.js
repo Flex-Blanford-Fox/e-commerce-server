@@ -1,4 +1,5 @@
 function errorHandler(err, req, res, next){
+  console.log(err, "ini err nya");
     let code
     let message 
     // console.log(err.name, "ini dari error handler");
