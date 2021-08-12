@@ -103,9 +103,16 @@ class KeranjangController {
     let id = Number(req.params.cartId)
     let {ProductId, quantity} = req.body
     let UserId = req.currentUser.id
-    Cart.findByPk(id)
-      .then(cart => {
-        if (quantity > cart.quantity) {
+    let batas
+    Product.findByPk(ProductId)
+      .then(product => {
+        batas = product.stock
+        return Cart.findByPk(id) 
+      })
+    .then(cart => {
+        // console.log(quantity, "INI QUANTITY");
+        // console.log(cart.quantity, "INI CARTTTTT QUANTITY");
+        if (quantity > batas) {
           throw {name: "Stock Tidak Mencukup"}
         } else {
           return Cart.update({UserId, ProductId, quantity}, {where: {id}, returning:true})
